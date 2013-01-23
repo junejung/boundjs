@@ -10,15 +10,18 @@ describe('rendering', function(){
       expect($empty.render({})).to.equal($empty);
     });
 
+    // june: todo
     xit('proxies an object that has been rendered against', function(){
       $empty.render(empty);
       expect(bound.isProxied(empty)).to.equal(true);
     });
 
+    // june: todo
     xit('adds a bound-widget attribute to the target node', function(){
       expect($empty.render({}).attr('bound-widget') === undefined).to.be(false);
     });
 
+    // june: maybe todo
     xit('doesn\'t recurse onto descendant bound widgets', function(){
       $name.render({}).appendTo($empty);
       expect(B.getDirectiveRenderCount()).to.equal(1);
@@ -149,7 +152,7 @@ describe('rendering', function(){
       expect($name2.html()).to.equal('bob');
     });
 
-    xit('should rerender the object that bound("set") on it', function(){
+    xit('should rerender nodes that depend on objects changed with .set()', function(){
       var $node = $('<div>\
         <div bound-with="alice" bound-contents="name"></div>\
         <div bound-with="bob" bound-contents="name"></div>\

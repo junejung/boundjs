@@ -4,23 +4,58 @@
 	  <script src="src/bound.js"></script>
   </head>
 
-  <body>
+  <body class="app" bound-with="app">
     <h1>Todos</h1>
     <input type="text"/>
-    <div id="listing" bound-loop="todos">
+    <div bound-loop="todos">
+      <div bound-with="draft">
+        New: <input type="text" name="task" bound-value="task"/>
+        <a bound-on-click="saveDraft">add</a>
+      </div>
       <div bound-item-template>
-        <input type="checkbox" bound-checked="done"/>
-        <div bound-contents="content"></div>
+        <input class="doneToggle" type="checkbox" bound-checked="done" bound-on-check="set"/>
+        <div bound-contents="task"></div>
       </div>
     </div>
 
     <script>
-      $(#listing).render({
+      // application model
+      var app = {
+        draft: {
+          save: function(task){
+            B(app.todos).push(makeTodo(task));
+          }
+        }
         todos :[
-          {content: 'listing todos', done:false},
-          {content: 'adding todo', done:false}
+          makeTask('listing todos'),
+          makeTask('adding todo')
         ]
+      };
+
+      function makeTodo = function(task){
+        return {
+          task: task,
+          done: false,
+          setDone: function(setting){
+            B(this).set({done: setting});
+          }
+        };
+      };
+
+      $('.app').boundInputs({
+        saveDraft: function($node, scope){
+          var task = this.$('input').val();
+          this.add(task);
+          this.$('input').val('');
+        }
       });
+
+      $('.doneToggle').events({
+        set: function($el, scope){
+          this.setDone($el.val());
+        }
+      });
+
     </script>
   </body>
 </html>
