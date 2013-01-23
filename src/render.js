@@ -84,7 +84,6 @@
     loop: function($node, scope) {
       var namespace = $node.attr("bound-loop");
       if(namespace){
-        debugger
         var items = scope.lookup(namespace);
         var $itemTemplate = $node.children().eq(0);
         if(typeof items === 'object'){
