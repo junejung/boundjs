@@ -18,7 +18,7 @@ describe('scopes', function(){
     });
 
     it('can provide the parent scope', function(){
-      expect(childScope._parent).to.equal(parentScope);
+      expect(childScope.parent()).to.equal(parentScope);
     });
 
     it('extend function returns object', function(){

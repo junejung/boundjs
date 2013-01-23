@@ -8,7 +8,8 @@
     extend: function(obj){
       var newScope = {
         _namespace: obj,
-        _parent: this
+        _parent: this,
+        parent: function(){ return this._parent; }
       };
       return _.defaults(newScope, bound.scope);
     },
